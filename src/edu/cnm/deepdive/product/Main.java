@@ -19,23 +19,9 @@ public class Main {
 
 		private static int[][] readIntMatrix(Path source, Pattern delimiter) throws IOException {
 		  return Files.lines(source)
-		        .map(new Function<String, int[]>() {
-
-		          @Override
-		          public int[] apply(String line) {
-		            return delimiter.splitAsStream(line)
-		                .mapToInt(new ToIntFunction<String>() {
-
-		                  @Override
-		                  public int applyAsInt(String value) {
-		                    return Integer.parseInt(value);
-		                  }
-
-		                })
-		                .toArray();
-		          }
-
-		        })
+		        .map((line) -> delimiter.splitAsStream(line)
+		        		.mapToInt(value -> Integer.parseInt(value))
+		        		.toArray())
 		        .collect(Collectors.toList())
 		        .toArray(new int[0][]);
 		}
