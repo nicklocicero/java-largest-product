@@ -23,6 +23,8 @@ public class Main {
 
   private static int[][] readIntMatrix(Path source, Pattern delimiter) throws IOException {
 	return Files.lines(source)
+			// .parallel() items need to process and don't need order, to split into different processors
+	  .map(String::trim)
 	  .map((line) -> delimiter.splitAsStream(line)
 	    .mapToInt(Integer::parseInt)
 		.toArray())
